@@ -194,7 +194,7 @@ public class BrightnessAutoTuneClientMod implements ClientModInitializer {
 			if (player != null) {
 				final double leastBrightness = config.getLeastBrightness();
 				final double mostBrightness = config.getMostBrightness();
-				final double finalTuneSpeed = config.getTuneSpeed() * (1 / (4 * Math.sqrt(2 * Math.PI))) * Math.exp(-Math.pow(5 * options.gamma-0.5, 2) / 3.2)
+				final double finalTuneSpeed = config.getTuneSpeed() * (1 / (4 * Math.sqrt(2 * Math.PI))) * Math.exp(-Math.pow(5 * options.gamma-0.5, 2) / 3.2);
 				final double newGamma = level.getRawBrightness(player.blockPosition().above(), 0) *
 						(leastBrightness - mostBrightness) / 15.0D + mostBrightness;
 
