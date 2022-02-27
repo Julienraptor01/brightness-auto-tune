@@ -40,8 +40,6 @@ public class BrightnessAutoTuneClientMod implements ClientModInitializer {
 
 		private double tuneSpeed;
 
-		private double finalTuneSpeed;
-
 		public Config() {
 			this(true);
 		}
@@ -54,12 +52,11 @@ public class BrightnessAutoTuneClientMod implements ClientModInitializer {
 			this(tuneBrightness, tuneSpeed, 0.0D, 1.0D);
 		}
 
-		public Config(final boolean tuneBrightness, final double tuneSpeed, final double leastBrightness, final double mostBrightness, final double finalTuneSpeed) {
+		public Config(final boolean tuneBrightness, final double tuneSpeed, final double leastBrightness, final double mostBrightness) {
 			this.tuneBrightness = tuneBrightness;
 			this.tuneSpeed = tuneSpeed;
 			this.leastBrightness = leastBrightness;
 			this.mostBrightness = mostBrightness;
-			this.finalTuneSpeed = finalTuneSpeed;
 		}
 
 		public double getLeastBrightness() {
@@ -72,10 +69,6 @@ public class BrightnessAutoTuneClientMod implements ClientModInitializer {
 
 		public double getTuneSpeed() {
 			return this.tuneSpeed;
-		}
-
-		public double getFinalTuneSpeed() {
-			return this.finalTuneSpeed;
 		}
 
 		public Config setLeastBrightness(final double leastBrightness) {
@@ -98,12 +91,6 @@ public class BrightnessAutoTuneClientMod implements ClientModInitializer {
 
 		public Config setTuneSpeed(final double tuneSpeed) {
 			this.tuneSpeed = clamp(0.0D, tuneSpeed, 1.0D);
-
-			return this;
-		}
-
-		public Config setFinalTuneSpeed(final double tuneSpeed) {
-			this.tuneSpeed = clamp(0.0D, finalTuneSpeed, 1.0D);
 
 			return this;
 		}
@@ -194,7 +181,7 @@ public class BrightnessAutoTuneClientMod implements ClientModInitializer {
 			if (player != null) {
 				final double leastBrightness = config.getLeastBrightness();
 				final double mostBrightness = config.getMostBrightness();
-				final double finalTuneSpeed = config.getTuneSpeed() * (1 / (4 * Math.sqrt(2 * Math.PI))) * Math.exp(-Math.pow(5 * options.gamma-0.5, 2) / 3.2);
+				final double tuneSpeed = (1 / (4 * Math.sqrt(2 * Math.PI))) * Math.exp(-Math.pow(5 * options.gamma-0.5, 2) / 3.2);
 				final double newGamma = level.getRawBrightness(player.blockPosition().above(), 0) *
 						(leastBrightness - mostBrightness) / 15.0D + mostBrightness;
 
